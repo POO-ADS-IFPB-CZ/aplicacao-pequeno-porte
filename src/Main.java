@@ -14,24 +14,21 @@ void main() {
         }
     }
 
-    List<Pessoa> pessoas = List.of(
-            new Pessoa("111.111.111-01", "João"),
-            new Pessoa("222.222.222-02", "Maria"),
-            new Pessoa("333.333.333-03", "Pedro")
-    );
-
-    //Jeito desorganizado de fazer a escrita...
-    try(BufferedWriter writer = new BufferedWriter(
-            new FileWriter(file, true)
+    //Jeito desorganizado de fazer a leitura...
+    try(BufferedReader reader = new BufferedReader(
+            new FileReader(file)
     )){
-        for(Pessoa pessoa : pessoas){
-            writer.write(pessoa.getCpf());
-            writer.write(';');
-            writer.write(pessoa.getNome());
-            writer.newLine();
-        }
+        List<Pessoa> pessoas = reader.lines().map(l -> {
+            String[] strings = l.split(";");
+            String cpf = strings[0];
+            String nome = strings[1];
+            return new Pessoa(cpf,nome);
+        }).toList();
+        System.out.println(pessoas);
+    } catch (FileNotFoundException e) {
+        System.out.println("Arquivo não encontrado");
     } catch (IOException e) {
-        System.out.println("Falha ao escrever no arquivo");
+        System.out.println("Falha ao ler arquivo");
     }
 
 
