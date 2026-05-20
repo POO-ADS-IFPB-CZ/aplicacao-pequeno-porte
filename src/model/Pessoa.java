@@ -1,17 +1,20 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Pessoa implements Serializable {
 
+    private static final long serialVersonUID = 1l;
     private String cpf;
     private String nome;
+    private LocalDate nascimento;
 
     //Construtor, get, set, toString
-
-    public Pessoa(String cpf, String nome) {
+    public Pessoa(String cpf, String nome, LocalDate nascimento) {
         this.cpf = cpf;
         this.nome = nome;
+        this.nascimento = nascimento;
     }
 
     public String getCpf() {
@@ -30,11 +33,20 @@ public class Pessoa implements Serializable {
         this.nome = nome;
     }
 
+    public LocalDate getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(LocalDate nascimento) {
+        this.nascimento = nascimento;
+    }
+
     @Override
     public String toString() {
         return "Pessoa{" +
                 "cpf='" + cpf + '\'' +
                 ", nome='" + nome + '\'' +
+                ", nascimento=" + nascimento +
                 '}';
     }
 }
