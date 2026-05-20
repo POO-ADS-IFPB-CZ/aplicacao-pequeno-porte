@@ -2,7 +2,7 @@ import model.Pessoa;
 
 void main() {
 
-    File file = new File("data/Pessoas.txt");
+    File file = new File("data/Pessoas.dat");
 
     if(!file.exists()){
         try{
@@ -14,21 +14,20 @@ void main() {
         }
     }
 
-    //Jeito desorganizado de fazer a leitura...
-    try(BufferedReader reader = new BufferedReader(
-            new FileReader(file)
+    List<Pessoa> pessoas = List.of(
+        new Pessoa("111.111.111-01","João"),
+        new Pessoa("222.222.222-02", "Maria"),
+        new Pessoa("333.333.333-03", "Pedro")
+    );
+
+    try(ObjectOutputStream out = new ObjectOutputStream(
+            new FileOutputStream(file)
     )){
-        List<Pessoa> pessoas = reader.lines().map(l -> {
-            String[] strings = l.split(";");
-            String cpf = strings[0];
-            String nome = strings[1];
-            return new Pessoa(cpf,nome);
-        }).toList();
-        System.out.println(pessoas);
+        out.writeObject(pessoas);
     } catch (FileNotFoundException e) {
         System.out.println("Arquivo não encontrado");
     } catch (IOException e) {
-        System.out.println("Falha ao ler arquivo");
+        System.out.println("Falha ao escrever no arquivo");
     }
 
 
