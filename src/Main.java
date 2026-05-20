@@ -12,6 +12,15 @@ void main() {
         }
     }
 
+    //Jeito desorganizado...
+    try(BufferedWriter writer = new BufferedWriter(
+            new FileWriter(file, true)
+    )){
+        writer.write("Hello World");
+        writer.newLine();
+    } catch (IOException e) {
+        System.out.println("Falha ao escrever no arquivo");
+    }
 
 
 }
