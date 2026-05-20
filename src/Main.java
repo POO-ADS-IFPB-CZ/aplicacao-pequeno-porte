@@ -1,6 +1,6 @@
 void main() {
 
-    File file = new File("data/arquivo.txt");
+    File file = new File("data/Pessoas.txt");
 
     if(!file.exists()){
         try{
@@ -12,8 +12,6 @@ void main() {
         }
     }
 
-    System.out.println("Tamanho: "+file.length());
-    System.out.println("Diretório pai: "+file.getAbsoluteFile().getParent());
-    System.out.println("Caminho: "+file.getAbsoluteFile().getPath());
+
 
 }
