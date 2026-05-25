@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Pessoa implements Serializable {
 
@@ -48,5 +49,17 @@ public class Pessoa implements Serializable {
                 ", nome='" + nome + '\'' +
                 ", nascimento=" + nascimento +
                 '}';
+    }
+
+    //Equals e hashCode pelo CPF
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Pessoa pessoa)) return false;
+        return Objects.equals(cpf, pessoa.cpf);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(cpf);
     }
 }
