@@ -41,7 +41,13 @@ public class GenericDao<T> implements Dao<T> {
     }
 
     @Override
-    public boolean atualizar(T objeto) {
+    public boolean atualizar(T objeto) throws IOException, ClassNotFoundException {
+        Set<T> objetos = listar();
+        //Isso só funciona com equals e hashCode feitos...
+        if(objetos.remove(objeto) && objetos.add(objeto)){
+            atualizarArquivo(objetos);
+            return true;
+        }
         return false;
     }
 
