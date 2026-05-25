@@ -1,7 +1,7 @@
 package dao;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class GenericDao<T> implements Dao<T> {
@@ -18,8 +18,16 @@ public class GenericDao<T> implements Dao<T> {
     }
 
     @Override
-    public Set<T> listar() {
-        return Set.of();
+    public Set<T> listar() throws IOException, ClassNotFoundException {
+        if(file.length()>0){
+            try(ObjectInputStream in = new ObjectInputStream(
+                    new FileInputStream(file)
+            )){
+               return (Set<T>) in.readObject();
+            }
+        }
+        //Arquivo está vazio, retornar novo conjunto
+        return new HashSet<>();
     }
 
     @Override
