@@ -31,7 +31,16 @@ public class GenericDao<T> implements Dao<T> {
     }
 
     @Override
-    public boolean salvar(T objeto) {
+    public boolean salvar(T objeto) throws IOException, ClassNotFoundException {
+        Set<T> objetos = listar();
+        if(objetos.add(objeto)){
+            try(ObjectOutputStream out = new ObjectOutputStream(
+                    new FileOutputStream(file)
+            )){
+                out.writeObject(objetos);
+            }
+            return true;
+        }
         return false;
     }
 
