@@ -1,23 +1,21 @@
 import dao.GenericDao;
 import model.Pessoa;
+import service.PessoaService;
 
 void main() {
 
-    GenericDao<Pessoa> genericDao = null;
-
+    PessoaService service = null;
     try {
-        genericDao = new GenericDao<>(
-                "data/Pessoas.dat");
+        service = new PessoaService();
     } catch (IOException e) {
-        System.out.println("Falha ao abrir arquivo");
+        throw new RuntimeException(e);
     }
 
-    try{
-        Pessoa pessoa = new Pessoa("111.111.111-01",
-                "João da Silva",
-                LocalDate.of(2000,3,10));
-        genericDao.atualizar(pessoa);
-        System.out.println(genericDao.listar());
+    try {
+        Optional<Pessoa> pessoa = service.buscarPorCpf("222.222.222-02");
+        if(pessoa.isPresent()){
+
+        }
     } catch (IOException e) {
         System.out.println("Falha ao abrir arquivo");
     } catch (ClassNotFoundException e) {
