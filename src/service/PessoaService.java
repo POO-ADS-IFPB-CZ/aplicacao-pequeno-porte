@@ -1,9 +1,12 @@
 package service;
 
 import dao.GenericDao;
+import exception.IdadeInvalidaException;
 import model.Pessoa;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Set;
 
 //Gerenciar regras de negócio
@@ -19,8 +22,12 @@ public class PessoaService {
         return pessoaDao.listar();
     }
 
-    public boolean salvar(Pessoa pessoa) throws IOException, ClassNotFoundException {
-        return pessoaDao.salvar(pessoa);
+    public boolean salvar(Pessoa pessoa) throws IOException, ClassNotFoundException,
+            IdadeInvalidaException {
+        if(validarPessoa(pessoa)){
+            return pessoaDao.salvar(pessoa);
+        }
+        return false;
     }
 
     public boolean atualizar(Pessoa pessoa) throws IOException, ClassNotFoundException {
@@ -29,6 +36,17 @@ public class PessoaService {
 
     public boolean deletar(Pessoa pessoa) throws IOException, ClassNotFoundException {
         return pessoaDao.deletar(pessoa);
+    }
+
+    private boolean validarPessoa(Pessoa pessoa) throws
+            IdadeInvalidaException{
+        if(Period.between(pessoa.getNascimento(), LocalDate.now())
+                .getYears()<14){
+            throw new IdadeInvalidaException(
+                    "Usuário não pode ter menos de 14 anos");
+        }
+        //TODO: Fazer mais validações
+        return true;
     }
 
 }
