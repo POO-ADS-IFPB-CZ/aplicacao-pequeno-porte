@@ -7,6 +7,7 @@ import model.Pessoa;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Optional;
 import java.util.Set;
 
 //Gerenciar regras de negócio
@@ -16,6 +17,13 @@ public class PessoaService {
 
     public PessoaService() throws IOException {
         pessoaDao = new GenericDao<>("data/Pessoas.dat");
+    }
+    
+    public Optional<Pessoa> buscarPorCpf(String cpf) throws IOException, 
+            ClassNotFoundException {
+        return pessoaDao.listar().stream()
+                .filter(p -> p.getCpf().equals(cpf))
+                .findFirst();
     }
 
     public Set<Pessoa> listar() throws IOException, ClassNotFoundException {
