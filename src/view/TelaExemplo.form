@@ -130,13 +130,15 @@
             </constraints>
             <properties/>
           </component>
-          <component id="8f9b3" class="javax.swing.JFormattedTextField" binding="formattedTextField1" default-binding="true">
+          <component id="8f9b3" class="javax.swing.JFormattedTextField" binding="formattedTextField1" custom-create="true" default-binding="true">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>
